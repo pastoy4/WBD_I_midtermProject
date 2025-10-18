@@ -1,1 +1,87 @@
-<p>login works!</p>
+<body class="d-flex align-items-center justify-content-center min-vh-100 p-3">
+
+    <!-- Auth Card Container -->
+    <div class="custom-card card shadow-lg border-0 rounded-3 w-100" style="max-width: 450px;">
+        <div class="card-body p-4 p-md-5">
+
+            <!-- Header (Currently configured for Log In) -->
+            <h2 id="form-title" class="text-3xl fw-bold text-center text-dark mb-2">
+                Welcome Back!
+            </h2>
+            <p id="form-subtitle" class="text-center text-secondary mb-4">
+                Sign in to your account
+            </p>
+
+            <!-- Form Start -->
+            <!-- Note: Form submission is disabled as JavaScript was removed -->
+            <form action="#" method="POST" class="needs-validation" novalidate>
+
+                <!-- Email Input Group -->
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-medium text-dark">Email Address</label>
+                    <input type="email" id="email" required placeholder="you@example.com"
+                        class="form-control form-control-lg border-dark">
+                </div>
+
+                <!-- Password Input Group -->
+                <div class="mb-3">
+                    <label for="password" class="form-label fw-medium text-dark">Password</label>
+                    <input type="password" id="password" required placeholder="••••••••"
+                        class="form-control form-control-lg border-dark">
+                </div>
+
+                <!-- Gemini Feature Button: Generate Password (Hidden for Log In) -->
+                <!-- This section would be shown for Sign Up via JavaScript -->
+                <div id="generate-password-div" class="mb-3 d-grid d-none">
+                    <button type="button" id="generate-password-btn"
+                        class="btn btn-outline-dark w-100 py-2 border-dark text-dark fw-medium">
+                        ✨ Generate Secure Password
+                    </button>
+                </div>
+
+                <!-- Password Confirmation Group (Hidden by default for Log In) -->
+                <!-- This section would be shown for Sign Up via JavaScript -->
+                <div id="confirm-password-group" class="mb-3 d-none">
+                    <label for="password-confirm" class="form-label fw-medium text-dark">Confirm Password</label>
+                    <input type="password" id="password-confirm" placeholder="Repeat password"
+                        class="form-control form-control-lg border-dark" disabled>
+                </div>
+
+                <!-- Remember Me & Forgot Password (Visible for Log In) -->
+                <div id="remember-forgot-div" class="d-flex align-items-center justify-content-between mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="remember-me">
+                        <label class="form-check-label text-dark" for="remember-me">Remember me</label>
+                    </div>
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-primary-orange text-decoration-none text-primary-orange">
+                            Forgot password?
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Submit Button (Primary Orange) -->
+                <div>
+                    <button routerLink="/home" type="submit" id="action-button"
+                        class="btn btn-custom-orange w-100 py-3">
+                        Log In
+                    </button>
+                </div>
+            </form>
+            <!-- Form End -->
+
+            <!-- Mode Toggle Link (Non-functional without JavaScript) -->
+            <div id="mode-toggle-link" class="mt-4 text-center text-sm text-secondary">
+                Don't have an account?
+                <a routerLink="/registration" class="text-primary-orange text-decoration-none" style="cursor: pointer;">
+                    Sign Up
+                </a>
+            </div>
+
+            <!-- Message Box (Hidden) -->
+            <div id="message-box" class="mt-4 p-3 rounded text-center fw-medium d-none"></div>
+
+        </div>
+    </div>
+
+</body>

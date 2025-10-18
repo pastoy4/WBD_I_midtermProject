@@ -1,0 +1,46 @@
+<body>
+
+
+    <nav class="app-header navbar navbar-expand-lg navbar-light fixed-top shadow-sm">
+        <div class="container-fluid mx-4">
+            <!-- Logo - Centered in the image -->
+            <a class="navbar-brand fw-bold text-dark fs-3 mx-auto" href="#">
+                Logo
+            </a>
+
+            <!-- Account Name and Avatar -->
+            <div class="d-flex align-items-center">
+                <span class="d-none d-sm-inline me-3 text-dark fw-medium">Account Name</span>
+                <i class="bi bi-person-circle fa-2x text-dark fs-3"></i> <!-- Avatar Icon -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Main App Container (Sidebar + Content) -->
+    <div class="app-container">
+
+        <!-- Sidebar -->
+        <div class="app-sidebar shadow-sm">
+            <div class="list-group list-group-flush">
+                <!-- Active Link (Users) -->
+                <a routerLink="users" routerLinkActive="active" class="sidebar-link active">
+                    <i class="bi bi-people me-2"></i> Users
+                </a>
+                <!-- Placeholder Links -->
+                <a href="#" class="sidebar-link">
+                    <i class="bi bi-graph-up me-2"></i> Analytics
+                </a>
+                <a href="#" class="sidebar-link">
+                    <i class="bi bi-gear me-2"></i> Settings
+                </a>
+                <a href="#" class="sidebar-link">
+                    <i class="bi bi-file-earmark-text me-2"></i> Reports
+                </a>
+            </div>
+        </div>
+
+        <router-outlet />
+
+
+    </div>
+</body>

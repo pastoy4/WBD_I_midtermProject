@@ -1,0 +1,163 @@
+<body class="d-flex align-items-center justify-content-center min-vh-100 p-3">
+
+    <!-- Auth Card Container -->
+    <div class="custom-card card shadow-lg border-0 rounded-3 w-100" style="max-width: 450px;">
+        <div class="card-body p-4 p-md-5">
+
+            <!-- Header (CONFIGURED FOR SIGN UP) -->
+            <h2 id="form-title" class="text-3xl fw-bold text-center text-dark mb-2">
+                Create Account
+            </h2>
+            <p id="form-subtitle" class="text-center text-secondary mb-4">
+                Enter your details to get started
+            </p>
+
+            <!-- Form Start -->
+            <form action="#" method="POST" class="needs-validation" novalidate>
+
+                <!-- First Name and Last Name Inputs -->
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label for="first-name" class="form-label fw-medium text-dark">First Name</label>
+                        <input
+                            type="text"
+                            id="first-name"
+                            required
+                            placeholder="John"
+                            class="form-control form-control-lg border-dark"
+                        >
+                    </div>
+                    <div class="col-md-6">
+                        <label for="last-name" class="form-label fw-medium text-dark">Last Name</label>
+                        <input
+                            type="text"
+                            id="last-name"
+                            required
+                            placeholder="Doe"
+                            class="form-control form-control-lg border-dark"
+                        >
+                    </div>
+                </div>
+
+                <!-- Username Input Group -->
+                <div class="mb-3">
+                    <label for="username" class="form-label fw-medium text-dark">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        required
+                        placeholder="johndoe123"
+                        class="form-control form-control-lg border-dark"
+                    >
+                </div>
+
+                <!-- NEW: Date of Birth Input Group -->
+                <div class="mb-3">
+                    <label class="form-label fw-medium text-dark">Date of Birth</label>
+                    <div class="row">
+                        <div class="col-4">
+                            <select class="form-select form-control-lg border-dark" id="dob-day" required>
+                                <option value="" disabled selected>Day</option>
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                                <option value="15">15</option><option value="31">31</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <select class="form-select form-control-lg border-dark" id="dob-month" required>
+                                <option value="" disabled selected>Month</option>
+                                <option value="1">Jan</option><option value="6">Jun</option><option value="12">Dec</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <select class="form-select form-control-lg border-dark" id="dob-year" required>
+                                <option value="" disabled selected>Year</option>
+                                <option value="2000">2000</option><option value="1990">1990</option><option value="1980">1980</option>
+                            </select>
+                        </div>
+                    </div>
+                    <small class="form-text text-secondary mt-1">Select your birthday for age verification.</small>
+                </div>
+
+                <!-- NEW: Gender Input Group (Radio Buttons) -->
+                <div class="mb-3">
+                    <label class="form-label fw-medium text-dark">Gender</label>
+                    <div class="d-flex flex-wrap">
+                        <label for="gender-female" class="gender-radio-container d-flex align-items-center justify-content-between mb-2">
+                            <span class="text-dark">Female</span>
+                            <input class="form-check-input ms-0" type="radio" name="gender" id="gender-female" value="female" required>
+                        </label>
+                        <label for="gender-male" class="gender-radio-container d-flex align-items-center justify-content-between mb-2">
+                            <span class="text-dark">Male</span>
+                            <input class="form-check-input ms-0" type="radio" name="gender" id="gender-male" value="male">
+                        </label>
+                        <label for="gender-other" class="gender-radio-container d-flex align-items-center justify-content-between mb-2 me-0">
+                            <span class="text-dark">Other</span>
+                            <input class="form-check-input ms-0" type="radio" name="gender" id="gender-other" value="other">
+                        </label>
+                    </div>
+                </div>
+
+
+                <!-- Email Input Group -->
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-medium text-dark">Email Address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        required
+                        placeholder="you@example.com"
+                        class="form-control form-control-lg border-dark"
+                    >
+                </div>
+
+                <!-- Password Input Group -->
+                <div class="mb-3">
+                    <label for="password" class="form-label fw-medium text-dark">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        required
+                        placeholder="••••••••"
+                        class="form-control form-control-lg border-dark"
+                    >
+                </div>
+                
+                <!-- Password Confirmation Group -->
+                <div id="confirm-password-group" class="mb-4">
+                    <label for="password-confirm" class="form-label fw-medium text-dark">Confirm Password</label>
+                    <input
+                        type="password"
+                        id="password-confirm"
+                        placeholder="Repeat password"
+                        class="form-control form-control-lg border-dark"
+                        required 
+                    >
+                </div>
+
+                <!-- Submit Button (Primary Orange) -->
+                <div>
+                    <button
+                        type="submit"
+                        id="action-button"
+                        class="btn btn-custom-orange w-100 py-3"
+                    >
+                        Sign Up
+                    </button>
+                </div>
+            </form>
+            <!-- Form End -->
+
+            <!-- Mode Toggle Link (Updated Text) -->
+            <div id="mode-toggle-link" class="mt-4 text-center text-sm text-secondary">
+                Already have an account?
+                <a routerLink="" class="text-primary-orange text-decoration-none">
+                    Log In
+                </a>
+            </div>
+
+            <!-- Message Box (Hidden) -->
+            <div id="message-box" class="mt-4 p-3 rounded text-center fw-medium d-none"></div>
+
+        </div>
+    </div>
+

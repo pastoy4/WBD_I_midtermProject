@@ -1,0 +1,87 @@
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f7f7f7; /* Very light background for contrast */
+  color: #000000;
+}
+
+/* Define primary orange color */
+:root {
+  --bs-primary: #ff8500;
+}
+
+/* Custom Orange Button Style */
+.btn-custom-orange {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: #ffffff;
+}
+
+.btn-custom-orange:hover,
+.btn-custom-orange:focus {
+  background-color: #e67600;
+  border-color: #e67600;
+  color: #ffffff;
+  box-shadow: 0 0 0 0.25rem rgba(255, 133, 0, 0.5);
+}
+
+/* Dashboard Layout */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  padding-top: 70px; /* Space for the fixed navbar */
+}
+
+/* Fixed Navbar Style */
+.app-header {
+  background-color: #ffffff; /* White background */
+  border-bottom: 1px solid #ccc;
+  height: 70px;
+  z-index: 1030;
+}
+
+/* Sidebar Style (Gemini Look) */
+.app-sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  background-color: #ffffff;
+  /* Removed border-right to make it cleaner */
+  /* Removed animation properties for instant load */
+  padding: 1rem 0.5rem; /* Added internal padding for floating links */
+}
+
+/* Main Content Area */
+router-outlet {
+  flex: 0;
+  
+}
+
+/* Sidebar Navigation Links (Pill Style) */
+.sidebar-link {
+  display: flex; /* Use flex for icon/text alignment */
+  align-items: center;
+  color: #000000;
+  padding: 0.6rem 1rem; /* Adjusted padding for better button shape */
+  margin-bottom: 0.4rem; /* Space between links */
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 0.5rem; /* Rounded corners for the "pill" look */
+  transition: all 0.3s ease;
+}
+
+/* Hover state for inactive links - adds subtle feedback */
+.sidebar-link:hover:not(.active) {
+  background-color: #f0f0f0; /* Light grey hover background */
+  color: #000000;
+}
+
+/* Active Sidebar Link (Orange Pill) */
+.sidebar-link.active {
+  background-color: #ff8500;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(255, 133, 0, 0.2); /* Subtle shadow for depth */
+}
+
+
+
+

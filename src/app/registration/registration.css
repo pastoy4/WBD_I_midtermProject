@@ -30,7 +30,7 @@ body {
         }
 
         /* Custom focus for input fields */
-        .form-control:focus {
+        .form-control:focus, .form-select:focus {
             border-color: #FF8500;
             box-shadow: 0 0 0 0.25rem rgba(255, 133, 0, 0.25);
         }
@@ -40,12 +40,22 @@ body {
             background-color: #FFFFFF;
         }
         
-        /* Custom dark button for the Gemini feature */
-        .btn-outline-dark.fw-medium {
-            color: #000000;
-            border-color: #000000;
+        /* Custom styling for gender radio button containers */
+        .gender-radio-container {
+            border: 1px solid #000000;
+            border-radius: 0.5rem; /* rounded-3 equivalent */
+            padding: 0.75rem; /* p-3 equivalent */
+            flex-grow: 1;
+            margin-right: 0.5rem;
+            cursor: pointer;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
-        .btn-outline-dark.fw-medium:hover {
-            background-color: #000000;
-            color: #FFFFFF;
+        
+        .gender-radio-container:last-child {
+            margin-right: 0;
+        }
+        
+        .gender-radio-container:has(input:checked) {
+            border-color: #FF8500;
+            box-shadow: 0 0 0 0.1rem #FF8500; 
         }

@@ -1,0 +1,59 @@
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f7f7f7; /* Very light background for contrast */
+  color: #000000;
+}
+
+.app-main-content {
+  
+  width: 1650px; /* (Recommended) Ensures it fills its parent */
+  margin: 0 ;
+  padding: 2rem 2rem 1rem;
+  background-color: #f7f7f7;
+}
+
+/* Table Styling */
+.table-custom th {
+  color: #000000;
+  background-color: #f0f0f0; /* Light grey header background */
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+/* Profile Image in table */
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+/* Custom Button Styles */
+.btn-edit {
+  background-color: #ff8500;
+  border-color: #ff8500;
+  color: #ffffff;
+}
+
+.btn-edit:hover,
+.btn-edit:focus {
+  background-color: #e67600;
+  border-color: #e67600;
+  color: #ffffff;
+  box-shadow: 0 0 0 0.25rem rgba(255, 133, 0, 0.5);
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #ffffff;
+}
+
+.btn-delete:hover,
+.btn-delete:focus {
+  background-color: #c82333;
+  border-color: #bd2130;
+  color: #ffffff;
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.5);
+}
