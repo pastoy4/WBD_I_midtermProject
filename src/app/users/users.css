@@ -1,15 +1,23 @@
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
 body {
   font-family: "Inter", sans-serif;
   background-color: #f7f7f7; /* Very light background for contrast */
   color: #000000;
-}
+} /* Added missing closing brace for body */
 
 .app-main-content {
-  
-  width: 1650px; /* (Recommended) Ensures it fills its parent */
-  margin: 0 ;
+  flex: 1;
+  width: 100%;
+  margin: 0;
   padding: 2rem 2rem 1rem;
   background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Table Styling */
@@ -57,3 +65,5 @@ body {
   color: #ffffff;
   box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.5);
 }
+
+/* Removed extra closing brace at the end of the file */

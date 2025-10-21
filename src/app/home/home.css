@@ -51,8 +51,7 @@ body {
 
 /* Main Content Area */
 router-outlet {
-  flex: 0;
-  
+  display: contents; /* This makes router-outlet transparent */
 }
 
 /* Sidebar Navigation Links (Pill Style) */
