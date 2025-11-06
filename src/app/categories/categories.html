@@ -1,0 +1,62 @@
+<main class="app-main-content">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-dark fw-bold">Category Management</h1>
+        <button class="btn btn-custom-orange shadow-sm">
+            <i class="bi bi-plus-lg me-2"></i> Add New Category
+        </button>
+    </div>
+
+    <div class="card shadow-lg border-0 rounded-3 h-100">
+        <div class="card-header bg-white border-0 pt-4 pb-0">
+            <h5 class="card-title text-dark fw-bold">Library Categories</h5>
+        </div>
+        <div class="card-body p-0">
+
+            <div *ngIf="isLoading" class="p-5 text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2 text-secondary">Loading categories from API...</p>
+            </div>
+
+            <div class="table-responsive" *ngIf="!isLoading && categories.length > 0">
+                <table class="table table-hover table-borderless align-middle mb-0 table-custom">
+                    <thead class="sticky-top">
+                        <tr>
+                            <th scope="col" class="py-3 px-4">ID</th>
+                            <th scope="col" class="py-3">Category Name</th>
+                            <th scope="col" class="py-3">Total Books</th>
+                            <th scope="col" class="py-3">Created Date</th>
+                            <th scope="col" class="py-3 text-end px-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let category of categories; let i = index">
+                            <td class="py-3 px-4">{{ i + 1 }}</td>
+                            <td>{{ category.name }}</td>
+                            <td>{{ category.bookCount | number }}</td>
+                            <td>{{ category.created_date | date: 'mediumDate' }}</td>
+                            <td class="text-end px-4">
+                                <button class="btn btn-sm btn-outline-dark me-2" title="Edit"><i
+                                        class="bi bi-pencil-square"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" title="Delete"
+                                    (click)="onDeleteCategory(category._id, category.name)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div *ngIf="!isLoading && categories.length === 0" class="p-5 text-center text-secondary">
+                <i class="bi bi-folder-x display-4 mb-3"></i>
+                <p>No categories found in the database.</p>
+            </div>
+        </div>
+        <div class="card-footer bg-white border-0 py-3 text-end">
+            <small class="text-secondary">Displaying {{ categories.length }} categories</small>
+        </div>
+    </div>
+</main>

@@ -3,6 +3,7 @@ import { Registration } from './registration/registration';
 import { Login } from './login/login';
 import { Home } from './home/home';
 import { Users } from './users/users';
+import { Categories } from './categories/categories';
 
 export const routes: Routes = [
     {
@@ -10,11 +11,9 @@ export const routes: Routes = [
         component: Login
     },
 
-    // 2. Top-level route for Registration
     {
         path: 'registration',
         component: Registration,
-        // REMOVE THIS LINE: redirectTo: '/login' 
     },
     {
         path: '',
@@ -30,19 +29,20 @@ export const routes: Routes = [
                     path: 'users',
                     component: Users
                 },
-                // Add your default 'home' route here
+                {
+                    path: 'categories',
+                    component: Categories
+                },
                 {
                     path: '',
-                    redirectTo: 'users', // <-- Add this
+                    redirectTo: 'users',
                     pathMatch: 'full'
                 }
             ]
     },
-
-    // 5. (Optional) Wildcard route for 404 pages
     {
         path: '**',
-        redirectTo: '/login' // Or a custom 404 component
+        redirectTo: '/login'
     }
 
 ];
