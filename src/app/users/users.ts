@@ -1,6 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { UserService } from '../service/user-service';
 
@@ -19,16 +19,18 @@ export class Users implements OnInit {
     userName: '',
     email: '',
     password: '',
-    confirmPassword: '', 
+    confirmPassword: '',
     gender: '',
     dob: '',
-    image: '', 
-    roleName: '' 
+    image: '',
+    roleName: ''
   };
   isEdit = false;
   editId: string = '';
+  selectedImageFile: File | null = null;
+  toast: { show: boolean; message: string; type: 'success' | 'danger' | 'info' | 'warning' } = { show: false, message: '', type: 'success' };
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getUsers();
@@ -36,24 +38,36 @@ export class Users implements OnInit {
 
   getUsers() {
     this.userService.getUsers().subscribe((res: any) => {
-      // Assuming 'res' is an array of users
-      this.users = res;
+      this.users = Array.isArray(res) ? res : (res?.data ?? []);
+      this.cdr.detectChanges();
     });
   }
 
   saveUser() {
-    if (this.isEdit) {
-      // NOTE: Update logic for PUT is separate and might not require confirmPassword
-      this.userService.updateUser(this.editId, this.user).subscribe(() => {
-        this.getUsers();
-        this.resetForm();
-      });
+    const proceedCreate = () => {
+      if (this.isEdit) {
+        this.userService.updateUser(this.editId, this.user).subscribe(() => {
+          this.getUsers();
+          this.resetForm();
+          this.showToast('User updated successfully', 'success');
+        });
+      } else {
+        this.userService.createUser(this.user).subscribe(() => {
+          this.getUsers();
+          this.resetForm();
+          this.showToast('User created successfully', 'success');
+        });
+      }
+    };
+
+    if (this.selectedImageFile && !this.user.image) {
+      this.userService.uploadImage(this.selectedImageFile).subscribe((res: any) => {
+        // Expecting backend returns image URL. Adjust key if different (e.g., res.url or res.imageUrl)
+        this.user.image = res?.url || res?.imageUrl || '';
+        proceedCreate();
+      }, () => proceedCreate());
     } else {
-      // Calls the corrected POST /api/users/register endpoint
-      this.userService.createUser(this.user).subscribe(() => {
-        this.getUsers();
-        this.resetForm();
-      });
+      proceedCreate();
     }
   }
 
@@ -72,6 +86,18 @@ export class Users implements OnInit {
     }
   }
 
+  onFileSelected(event: any) {
+    const file: File | null = event?.target?.files?.[0] || null;
+    this.selectedImageFile = file;
+  }
+
+  uploadSelectedImage() {
+    if (!this.selectedImageFile) { return; }
+    this.userService.uploadImage(this.selectedImageFile).subscribe((res: any) => {
+      this.user.image = res?.url || res?.imageUrl || '';
+    });
+  }
+
   resetForm() {
     // Reset to the initial state
     this.user = {
@@ -87,5 +113,17 @@ export class Users implements OnInit {
       roleName: ''
     };
     this.isEdit = false;
+    this.selectedImageFile = null;
+  }
+
+  private showToast(message: string, type: 'success' | 'danger' | 'info' | 'warning' = 'success') {
+    this.toast.message = message;
+    this.toast.type = type;
+    this.toast.show = true;
+    this.cdr.detectChanges();
+    setTimeout(() => {
+      this.toast.show = false;
+      this.cdr.detectChanges();
+    }, 2500);
   }
 }

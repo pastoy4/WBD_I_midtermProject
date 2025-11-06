@@ -83,12 +83,14 @@
                                 <div class="col-md-6">
                                     <label for="firstName" class="form-label">First Name <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                                    <input type="text" class="form-control" id="firstName" placeholder="First Name"
+                                        [(ngModel)]="user.firstName" name="firstName">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="lastName" class="form-label">Last Name <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                                    <input type="text" class="form-control" id="lastName" placeholder="Last Name"
+                                        [(ngModel)]="user.lastName" name="lastName">
                                 </div>
                             </div>
 
@@ -98,12 +100,13 @@
                                     <label for="username" class="form-label">Username <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="username"
-                                        placeholder="Enter The Username">
+                                        placeholder="Enter The Username" [(ngModel)]="user.userName" name="userName">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="email" class="form-label">Email <span
                                             class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" id="email" placeholder="Enter The Email">
+                                    <input type="email" class="form-control" id="email" placeholder="Enter The Email"
+                                        [(ngModel)]="user.email" name="email">
                                 </div>
                             </div>
 
@@ -113,13 +116,14 @@
                                     <label for="password" class="form-label">Password <span
                                             class="text-danger">*</span></label>
                                     <input type="password" class="form-control" id="password"
-                                        placeholder="Enter The Password">
+                                        placeholder="Enter The Password" [(ngModel)]="user.password" name="password">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="confirmPassword" class="form-label">Confirm Password <span
                                             class="text-danger">*</span></label>
                                     <input type="password" class="form-control" id="confirmPassword"
-                                        placeholder="Confirm Password">
+                                        placeholder="Confirm Password" [(ngModel)]="user.confirmPassword"
+                                        name="confirmPassword">
                                 </div>
                             </div>
 
@@ -128,17 +132,18 @@
                                 <div class="col-md-6">
                                     <label for="gender" class="form-label">Gender <span
                                             class="text-danger">*</span></label>
-                                    <select class="form-select" id="gender">
+                                    <select class="form-select" id="gender" [(ngModel)]="user.gender" name="gender">
                                         <option selected disabled>Gender Options</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="dateOfBirth" class="form-label">Date Of Birth <span
                                             class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" id="dateOfBirth">
+                                    <input type="date" class="form-control" id="dateOfBirth" [(ngModel)]="user.dob"
+                                        name="dob">
                                 </div>
                             </div>
 
@@ -146,7 +151,8 @@
                             <div class="row mb-3">
                                 <div class="col-12">
                                     <label for="imageUpload" class="form-label">Image User</label>
-                                    <input class="form-control" type="file" id="imageUpload" accept="image/*">
+                                    <input class="form-control" type="file" id="imageUpload" accept="image/*"
+                                        (change)="onFileSelected($event)">
 
                                     <input type="hidden" [(ngModel)]="user.image" name="image">
 
@@ -159,7 +165,8 @@
 
                             <div class="row mb-3">
                                 <div class="col-12">
-                                    <button type="button" class="btn btn-outline-primary me-2">
+                                    <button type="button" class="btn btn-outline-primary me-2"
+                                        (click)="uploadSelectedImage()">
                                         <i class="bi bi-upload"></i> Upload Image
                                     </button>
                                     <button type="button" class="btn btn-outline-danger" (click)="user.image = ''">
@@ -195,4 +202,9 @@
         </div>
     </div>
 
+    <!-- Toast Alert -->
+    <div *ngIf="toast.show" class="alert alert-{{toast.type}} shadow"
+        style="position: fixed; right: 16px; bottom: 16px; z-index: 1080; min-width: 260px;">
+        {{ toast.message }}
+    </div>
 </div>
