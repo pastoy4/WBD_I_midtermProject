@@ -16,7 +16,7 @@ export interface Category {
 })
 export class CategoryService {
   // --- MATCHES YOUR API PORT ---
-  private apiUrl = 'http://localhost:4000/api/categories';
+  private apiUrl = 'http://localhost:5000/api/categories';
   // -----------------------------
 
   constructor(private http: HttpClient) { }
@@ -29,6 +29,11 @@ export class CategoryService {
   /** Adds a new category. */
   addCategory(category: { name: string, description?: string }): Observable<Category> {
     return this.http.post<Category>(this.apiUrl, category);
+  }
+
+  /** Updates an existing category. */
+  updateCategory(id: string, category: { name?: string; description?: string }): Observable<Category> {
+    return this.http.put<Category>(`${this.apiUrl}/${id}`, category);
   }
 
   /** Deletes a category by its Mongoose _id. */

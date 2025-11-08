@@ -4,6 +4,7 @@ import { Login } from './login/login';
 import { Home } from './home/home';
 import { Users } from './users/users';
 import { Categories } from './categories/categories';
+import { Books } from './books/books';
 
 export const routes: Routes = [
     {
@@ -32,6 +33,11 @@ export const routes: Routes = [
                 {
                     path: 'categories',
                     component: Categories
+                },
+
+                {
+                    path: 'books', // <-- NEW ROUTE PATH
+                    component: Books
                 },
                 {
                     path: '',

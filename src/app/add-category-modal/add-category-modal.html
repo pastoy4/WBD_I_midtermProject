@@ -1,0 +1,55 @@
+<div class="modal-backdrop"
+     [class.show]="isVisible"
+     [style.display]="isVisible ? 'block' : 'none'"
+     [attr.aria-hidden]="(!isVisible).toString()"></div>
+<div class="modal" tabindex="-1" role="dialog" [class.show]="isVisible" [style.display]="isVisible ? 'block' : 'none'">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">{{ mode === 'edit' ? 'Edit Category' : 'Add New Category' }}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmit()" #categoryForm="ngForm">
+
+          <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+            {{ errorMessage }}
+          </div>
+
+          <div class="mb-3">
+            <label for="name" class="form-label fw-medium">Category Name *</label>
+            <input type="text"
+                   id="name"
+                   class="form-control"
+                   name="name"
+                   required
+                   [(ngModel)]="newCategory.name">
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label fw-medium">Description</label>
+            <textarea id="description"
+                      class="form-control"
+                      name="description"
+                      rows="3"
+                      [(ngModel)]="newCategory.description"></textarea>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeModal()">Cancel</button>
+        <button type="submit"
+                class="btn btn-custom-orange"
+                [disabled]="categoryForm.invalid || isSubmitting"
+                (click)="onSubmit()">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          {{ isSubmitting ? (mode === 'edit' ? 'Saving...' : 'Adding...') : (mode === 'edit' ? 'Save Changes' : 'Add Category') }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

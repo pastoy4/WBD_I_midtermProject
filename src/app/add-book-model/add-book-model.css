@@ -1,0 +1,50 @@
+/* Custom styles for the AddBookModal */
+
+/* Overlay to darken the background */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 1040;
+    opacity: 0;
+    transition: opacity 0.15s linear;
+}
+
+.modal-backdrop.show {
+    opacity: 1;
+}
+
+/* The actual modal container */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: 0;
+}
+
+/* Ensure form controls look consistent */
+.form-control, .form-select {
+    border-radius: 0.5rem;
+}
+
+/* Modal header/footer consistency */
+.modal-header, .modal-footer {
+    border: none;
+    padding: 1rem 1.5rem;
+}
+
+.modal-content {
+    border-radius: 1rem;
+}
+
+/* Reusing your custom orange button style for the primary action */
+/* .btn-custom-orange {
+} */
