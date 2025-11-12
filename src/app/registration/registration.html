@@ -13,42 +13,39 @@
             </p>
 
             <!-- Form Start -->
-            <form action="#" method="POST" class="needs-validation" novalidate>
+            <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
 
                 <!-- First Name and Last Name Inputs -->
                 <div class="row mb-3">
                     <div class="col-md-6 mb-3 mb-md-0">
                         <label for="first-name" class="form-label fw-medium text-dark">First Name</label>
-                        <input
-                            type="text"
-                            id="first-name"
-                            required
-                            placeholder="John"
+                        <input type="text" id="first-name" formControlName="firstName" required placeholder="John"
                             class="form-control form-control-lg border-dark"
-                        >
+                            [ngClass]="{ 'is-invalid': isInvalid('firstName') }">
+                        <div class="invalid-feedback">
+                            First name is required.
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <label for="last-name" class="form-label fw-medium text-dark">Last Name</label>
-                        <input
-                            type="text"
-                            id="last-name"
-                            required
-                            placeholder="Doe"
+                        <input type="text" id="last-name" formControlName="lastName" required placeholder="Doe"
                             class="form-control form-control-lg border-dark"
-                        >
+                            [ngClass]="{ 'is-invalid': isInvalid('lastName') }">
+                        <div class="invalid-feedback">
+                            Last name is required.
+                        </div>
                     </div>
                 </div>
 
                 <!-- Username Input Group -->
                 <div class="mb-3">
                     <label for="username" class="form-label fw-medium text-dark">Username</label>
-                    <input
-                        type="text"
-                        id="username"
-                        required
-                        placeholder="johndoe123"
+                    <input type="text" id="username" formControlName="userName" required placeholder="johndoe123"
                         class="form-control form-control-lg border-dark"
-                    >
+                        [ngClass]="{ 'is-invalid': isInvalid('userName') }">
+                    <div class="invalid-feedback">
+                        Username is required.
+                    </div>
                 </div>
 
                 <!-- NEW: Date of Birth Input Group -->
@@ -56,23 +53,34 @@
                     <label class="form-label fw-medium text-dark">Date of Birth</label>
                     <div class="row">
                         <div class="col-4">
-                            <select class="form-select form-control-lg border-dark" id="dob-day" required>
-                                <option value="" disabled selected>Day</option>
-                                <option value="1">1</option><option value="2">2</option><option value="3">3</option>
-                                <option value="15">15</option><option value="31">31</option>
+                            <select class="form-select form-control-lg border-dark" id="dob-day"
+                                formControlName="dobDay" required [ngClass]="{ 'is-invalid': isInvalid('dobDay') }">
+                                <option value="">Day</option>
+                                <option *ngFor="let day of days" [value]="day.value">{{ day.label }}</option>
                             </select>
+                            <div class="invalid-feedback">
+                                Select a day.
+                            </div>
                         </div>
                         <div class="col-4">
-                            <select class="form-select form-control-lg border-dark" id="dob-month" required>
-                                <option value="" disabled selected>Month</option>
-                                <option value="1">Jan</option><option value="6">Jun</option><option value="12">Dec</option>
+                            <select class="form-select form-control-lg border-dark" id="dob-month"
+                                formControlName="dobMonth" required [ngClass]="{ 'is-invalid': isInvalid('dobMonth') }">
+                                <option value="">Month</option>
+                                <option *ngFor="let month of months" [value]="month.value">{{ month.label }}</option>
                             </select>
+                            <div class="invalid-feedback">
+                                Select a month.
+                            </div>
                         </div>
                         <div class="col-4">
-                            <select class="form-select form-control-lg border-dark" id="dob-year" required>
-                                <option value="" disabled selected>Year</option>
-                                <option value="2000">2000</option><option value="1990">1990</option><option value="1980">1980</option>
+                            <select class="form-select form-control-lg border-dark" id="dob-year"
+                                formControlName="dobYear" required [ngClass]="{ 'is-invalid': isInvalid('dobYear') }">
+                                <option value="">Year</option>
+                                <option *ngFor="let year of years" [value]="year.value">{{ year.label }}</option>
                             </select>
+                            <div class="invalid-feedback">
+                                Select a year.
+                            </div>
                         </div>
                     </div>
                     <small class="form-text text-secondary mt-1">Select your birthday for age verification.</small>
@@ -82,18 +90,27 @@
                 <div class="mb-3">
                     <label class="form-label fw-medium text-dark">Gender</label>
                     <div class="d-flex flex-wrap">
-                        <label for="gender-female" class="gender-radio-container d-flex align-items-center justify-content-between mb-2">
+                        <label for="gender-female"
+                            class="gender-radio-container d-flex align-items-center justify-content-between mb-2">
                             <span class="text-dark">Female</span>
-                            <input class="form-check-input ms-0" type="radio" name="gender" id="gender-female" value="female" required>
+                            <input class="form-check-input ms-0" type="radio" id="gender-female" name="gender"
+                                value="Female" required formControlName="gender">
                         </label>
-                        <label for="gender-male" class="gender-radio-container d-flex align-items-center justify-content-between mb-2">
+                        <label for="gender-male"
+                            class="gender-radio-container d-flex align-items-center justify-content-between mb-2">
                             <span class="text-dark">Male</span>
-                            <input class="form-check-input ms-0" type="radio" name="gender" id="gender-male" value="male">
+                            <input class="form-check-input ms-0" type="radio" id="gender-male" name="gender"
+                                value="Male" formControlName="gender">
                         </label>
-                        <label for="gender-other" class="gender-radio-container d-flex align-items-center justify-content-between mb-2 me-0">
+                        <label for="gender-other"
+                            class="gender-radio-container d-flex align-items-center justify-content-between mb-2 me-0">
                             <span class="text-dark">Other</span>
-                            <input class="form-check-input ms-0" type="radio" name="gender" id="gender-other" value="other">
+                            <input class="form-check-input ms-0" type="radio" id="gender-other" name="gender"
+                                value="Other" formControlName="gender">
                         </label>
+                    </div>
+                    <div *ngIf="isInvalid('gender')" class="text-danger small mt-1">
+                        Please select a gender.
                     </div>
                 </div>
 
@@ -101,47 +118,47 @@
                 <!-- Email Input Group -->
                 <div class="mb-3">
                     <label for="email" class="form-label fw-medium text-dark">Email Address</label>
-                    <input
-                        type="email"
-                        id="email"
-                        required
-                        placeholder="you@example.com"
+                    <input type="email" id="email" formControlName="email" required placeholder="you@example.com"
                         class="form-control form-control-lg border-dark"
-                    >
+                        [ngClass]="{ 'is-invalid': isInvalid('email') }">
+                    <div class="invalid-feedback">
+                        Enter a valid email address.
+                    </div>
                 </div>
 
                 <!-- Password Input Group -->
                 <div class="mb-3">
                     <label for="password" class="form-label fw-medium text-dark">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        required
-                        placeholder="••••••••"
+                    <input type="password" id="password" formControlName="password" required placeholder="••••••••"
                         class="form-control form-control-lg border-dark"
-                    >
+                        [ngClass]="{ 'is-invalid': isInvalid('password') }" autocomplete="new-password">
+                    <div class="invalid-feedback">
+                        Password must be at least 6 characters.
+                    </div>
                 </div>
-                
+
                 <!-- Password Confirmation Group -->
                 <div id="confirm-password-group" class="mb-4">
                     <label for="password-confirm" class="form-label fw-medium text-dark">Confirm Password</label>
-                    <input
-                        type="password"
-                        id="password-confirm"
-                        placeholder="Repeat password"
-                        class="form-control form-control-lg border-dark"
-                        required 
-                    >
+                    <input type="password" id="password-confirm" formControlName="confirmPassword"
+                        placeholder="Repeat password" class="form-control form-control-lg border-dark" required
+                        [ngClass]="{ 'is-invalid': isInvalid('confirmPassword') }" autocomplete="new-password">
+                    <div class="invalid-feedback"
+                        *ngIf="registrationForm.hasError('passwordMismatch') && (registrationForm.get('confirmPassword')?.dirty || registrationForm.get('confirmPassword')?.touched)">
+                        Passwords must match.
+                    </div>
+                    <div class="invalid-feedback"
+                        *ngIf="registrationForm.get('confirmPassword')?.errors?.['required'] && (registrationForm.get('confirmPassword')?.dirty || registrationForm.get('confirmPassword')?.touched)">
+                        Confirm your password.
+                    </div>
                 </div>
 
                 <!-- Submit Button (Primary Orange) -->
                 <div>
-                    <button
-                        type="submit"
-                        id="action-button"
-                        class="btn btn-custom-orange w-100 py-3"
-                    >
-                        Sign Up
+                    <button type="submit" id="action-button" class="btn btn-custom-orange w-100 py-3"
+                        [disabled]="isSubmitting">
+                        <span *ngIf="!isSubmitting">Sign Up</span>
+                        <span *ngIf="isSubmitting">Processing...</span>
                     </button>
                 </div>
             </form>
@@ -150,14 +167,16 @@
             <!-- Mode Toggle Link (Updated Text) -->
             <div id="mode-toggle-link" class="mt-4 text-center text-sm text-secondary">
                 Already have an account?
-                <a routerLink="" class="text-primary-orange text-decoration-none">
+                <a routerLink="/login" class="text-primary-orange text-decoration-none">
                     Log In
                 </a>
             </div>
 
             <!-- Message Box (Hidden) -->
-            <div id="message-box" class="mt-4 p-3 rounded text-center fw-medium d-none"></div>
+            <div *ngIf="message" id="message-box" class="mt-4 p-3 rounded text-center fw-medium"
+                [ngClass]="messageClass">
+                {{ message }}
+            </div>
 
         </div>
     </div>
-
