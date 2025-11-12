@@ -16,7 +16,7 @@ export interface Category {
 })
 export class CategoryService {
   // --- MATCHES YOUR API PORT ---
-  private apiUrl = 'http://localhost:5000/api/categories';
+  private apiUrl = 'http://localhost:9000/api/categories';
   // -----------------------------
 
   constructor(private http: HttpClient) { }

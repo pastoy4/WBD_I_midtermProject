@@ -30,7 +30,7 @@ export type CreateBookPayload = {
 })
 export class BookService {
   // Assuming a similar API structure as categories
-  private apiUrl = 'http://localhost:4000/api/books';
+  private apiUrl = 'http://localhost:9001/api/books';
 
   constructor(private http: HttpClient) { }
 
