@@ -14,20 +14,22 @@
 
             <!-- Form Start -->
             <!-- Note: Form submission is disabled as JavaScript was removed -->
-            <form action="#" method="POST" class="needs-validation" novalidate>
+            <form (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
 
-                <!-- Email Input Group -->
+                <!-- Identifier Input Group -->
                 <div class="mb-3">
-                    <label for="email" class="form-label fw-medium text-dark">Email Address</label>
-                    <input type="email" id="email" required placeholder="you@example.com"
-                        class="form-control form-control-lg border-dark">
+                    <label for="identifier" class="form-label fw-medium text-dark">Email or Username</label>
+                    <input type="text" id="identifier" required placeholder="you@example.com or username"
+                        class="form-control form-control-lg border-dark" name="identifier"
+                        [(ngModel)]="credentials.identifier">
                 </div>
 
                 <!-- Password Input Group -->
                 <div class="mb-3">
                     <label for="password" class="form-label fw-medium text-dark">Password</label>
                     <input type="password" id="password" required placeholder="••••••••"
-                        class="form-control form-control-lg border-dark">
+                        class="form-control form-control-lg border-dark" name="password"
+                        [(ngModel)]="credentials.password">
                 </div>
 
                 <!-- Gemini Feature Button: Generate Password (Hidden for Log In) -->
@@ -61,10 +63,18 @@
                 </div>
 
                 <!-- Submit Button (Primary Orange) -->
+                <div class="mb-3" *ngIf="errorMessage">
+                    <div class="alert alert-danger" role="alert">
+                        {{ errorMessage }}
+                    </div>
+                </div>
+
+                <!-- Submit Button (Primary Orange) -->
                 <div>
-                    <button routerLink="/home" type="submit" id="action-button"
-                        class="btn btn-custom-orange w-100 py-3">
-                        Log In
+                    <button type="submit" id="action-button" class="btn btn-custom-orange w-100 py-3"
+                        [disabled]="loading">
+                        <span *ngIf="!loading">Log In</span>
+                        <span *ngIf="loading">Signing In...</span>
                     </button>
                 </div>
             </form>

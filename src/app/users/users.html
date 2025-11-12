@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- 3. Main Content Area -->
 
 <main class="app-main-content">
@@ -90,3 +91,390 @@
     </div>
 
 </main>
+=======
+<div class="container-lg">
+    <div class="container-main">
+        <!-- Header -->
+        <div class="header-section">
+            <h1>All User Details</h1>
+            <button class="btn-add-user" data-bs-toggle="modal" data-bs-target="#addUserModal" (click)="prepareCreate()">
+                <i class="bi bi-person-plus"></i> Add User
+            </button>
+        </div>
+
+        <!-- Search -->
+        <div class="search-container">
+            <label>Search</label>
+            <div class="search-input-group">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" class="form-control" placeholder="search users" [(ngModel)]="searchTerm"
+                    (keyup)="applyFilter()" (search)="applyFilter()" name="search">
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Picture</th>
+                        <th>Full Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>DOB</th>
+                        <th>Role Name</th>
+                        <th>Register Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of filteredUsers; let i = index">
+                        <td class="table-number">{{ i + 1 }}</td>
+                        <td><img [src]="user.image" alt="User Avatar" class="user-avatar"></td>
+                        <td class="table-name">{{ user.firstName }} {{ user.lastName }}</td>
+                        <td>{{ user.userName }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.gender }}</td>
+                        <td>{{ user.dob | date: 'dd-MMM-yy' }}</td>
+                        <td><span class="table-role">{{ user.roleName }}</span></td>
+                        <td>{{ user.createdAt | date: 'dd-MMM-yy' }}</td>
+                        <td>
+                            <button class="btn-edit" (click)="editUser(user)" data-bs-toggle="modal"
+                                data-bs-target="#editUserModal"><i class="bi bi-pencil"></i> Edit</button>
+                            <button class="btn-delete" (click)="deleteUser(user._id)"><i class="bi bi-trash"></i>
+                                Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container">
+            <button class="pagination-btn">
+                <i class="bi bi-chevron-left"></i> Previous
+            </button>
+            <span class="pagination-info">Page 1 of 2</span>
+            <button class="pagination-btn">
+                Next <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+        <!-- Add User Modal -->
+        <div class="modal fade" id="addUserModal" style="font-family: Calibri;" tabindex="-1"
+            aria-labelledby="addUserModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="addUserModalLabel">Add User</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body p-4">
+                        <form #addUserForm="ngForm" id="addUserFormRef" (ngSubmit)="saveUser(addUserForm, 'addUserModal')" novalidate>
+                            <!-- Row 1: First Name & Last Name -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="firstName" class="form-label">First Name <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="First Name"
+                                        [(ngModel)]="user.firstName" name="firstName" required
+                                        [ngClass]="{'is-invalid': isAddSubmitted && addUserForm.controls['firstName']?.invalid}">
+                                    <div *ngIf="isAddSubmitted && addUserForm.controls['firstName']?.invalid"
+                                        class="invalid-feedback d-block">First name is required.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastName" class="form-label">Last Name <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="lastName" placeholder="Last Name"
+                                        [(ngModel)]="user.lastName" name="lastName" required
+                                        [ngClass]="{'is-invalid': isAddSubmitted && addUserForm.controls['lastName']?.invalid}">
+                                    <div *ngIf="isAddSubmitted && addUserForm.controls['lastName']?.invalid"
+                                        class="invalid-feedback d-block">Last name is required.</div>
+                                </div>
+                            </div>
+
+                            <!-- Row 2: Username & Email -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="username" class="form-label">Username <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="username"
+                                        placeholder="Enter The Username" [(ngModel)]="user.userName" name="userName"
+                                        required
+                                        [ngClass]="{'is-invalid': isAddSubmitted && addUserForm.controls['userName']?.invalid}">
+                                    <div *ngIf="isAddSubmitted && addUserForm.controls['userName']?.invalid"
+                                        class="invalid-feedback d-block">Username is required.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email <span
+                                            class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter The Email"
+                                        [(ngModel)]="user.email" name="email" required
+                                        [ngClass]="{'is-invalid': isAddSubmitted && addUserForm.controls['email']?.invalid}">
+                                    <div *ngIf="isAddSubmitted && addUserForm.controls['email']?.invalid"
+                                        class="invalid-feedback d-block">Email is required.</div>
+                                </div>
+                            </div>
+
+                            <!-- Row 3: Password & Confirm Password -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="password" class="form-label">Password <span
+                                            class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" id="password"
+                                        placeholder="Enter The Password" [(ngModel)]="user.password" name="password"
+                                        required (ngModelChange)="onPasswordFieldsChange()"
+                                        [ngClass]="{'is-invalid': isAddSubmitted && addUserForm.controls['password']?.invalid}">
+                                    <div *ngIf="isAddSubmitted && addUserForm.controls['password']?.invalid"
+                                        class="invalid-feedback d-block">Password is required.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="confirmPassword" class="form-label">Confirm Password <span
+                                            class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" id="confirmPassword"
+                                        placeholder="Confirm Password" [(ngModel)]="user.confirmPassword"
+                                        name="confirmPassword" required (ngModelChange)="onPasswordFieldsChange()"
+                                        [ngClass]="{'is-invalid': (isAddSubmitted && addUserForm.controls['confirmPassword']?.invalid) || (isAddSubmitted && passwordMismatch)}">
+                                    <div *ngIf="isAddSubmitted && addUserForm.controls['confirmPassword']?.invalid"
+                                        class="invalid-feedback d-block">Confirm password is required.</div>
+                                    <div *ngIf="isAddSubmitted && passwordMismatch" class="invalid-feedback d-block">
+                                        Password and Confirm Password must match.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Row 4: Gender & Date of Birth -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="gender" class="form-label">Gender <span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-select" id="gender" [(ngModel)]="user.gender" name="gender"
+                                        required
+                                        [ngClass]="{'is-invalid': isAddSubmitted && addUserForm.controls['gender']?.invalid}">
+                                        <option value="" disabled selected>Gender Options</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <div *ngIf="isAddSubmitted && addUserForm.controls['gender']?.invalid"
+                                        class="invalid-feedback d-block">Gender is required.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="dateOfBirth" class="form-label">Date Of Birth <span
+                                            class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" id="dateOfBirth" [(ngModel)]="user.dob"
+                                        name="dob" required
+                                        [ngClass]="{'is-invalid': isAddSubmitted && addUserForm.controls['dob']?.invalid}">
+                                    <div *ngIf="isAddSubmitted && addUserForm.controls['dob']?.invalid"
+                                        class="invalid-feedback d-block">Date of birth is required.</div>
+                                </div>
+                            </div>
+
+                            <!-- Row 5: Image Upload -->
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label for="imageUpload" class="form-label">Image User</label>
+                                    <input class="form-control" type="file" id="imageUpload" accept="image/*"
+                                        (change)="onFileSelected($event)">
+
+                                    <input type="hidden" [(ngModel)]="user.image" name="image">
+
+                                    <div *ngIf="user.image" class="mt-2">
+                                        <img [src]="user.image" alt="Selected Image Preview"
+                                            style="max-width: 100px; max-height: 100px; border-radius: 4px;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-outline-primary me-2"
+                                        (click)="uploadSelectedImage()">
+                                        <i class="bi bi-upload"></i> Upload Image
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger" (click)="user.image = ''">
+                                        <i class="bi bi-x-circle"></i> Cancel Upload
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="roleName" class="form-label">Role Name <span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-select" id="roleName" [(ngModel)]="user.roleName"
+                                        name="roleName" required
+                                        [ngClass]="{'is-invalid': isAddSubmitted && addUserForm.controls['roleName']?.invalid}">
+                                        <option value="" disabled selected>Select a Role</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="user">User</option>
+                                        <option value="moderator">Moderator</option>
+                                    </select>
+                                    <div *ngIf="isAddSubmitted && addUserForm.controls['roleName']?.invalid"
+                                        class="invalid-feedback d-block">Role is required.</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger " data-bs-dismiss="modal"
+                            (click)="resetForm()">Close</button>
+                        <button type="submit" class="btn btn-primary" form="addUserFormRef">Save
+                            changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit User Modal -->
+        <div class="modal fade" id="editUserModal" style="font-family: Calibri;" tabindex="-1"
+            aria-labelledby="editUserModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editUserModalLabel">Edit User</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body p-4">
+                        <form #editUserForm="ngForm" id="editUserFormRef" (ngSubmit)="saveUser(editUserForm, 'editUserModal')" novalidate>
+                            <!-- Row 1: First Name & Last Name -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="firstNameEdit" class="form-label">First Name <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="firstNameEdit" placeholder="First Name"
+                                        [(ngModel)]="user.firstName" name="editFirstName" required
+                                        [ngClass]="{'is-invalid': isEditSubmitted && editUserForm.controls['editFirstName']?.invalid}">
+                                    <div *ngIf="isEditSubmitted && editUserForm.controls['editFirstName']?.invalid"
+                                        class="invalid-feedback d-block">First name is required.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastNameEdit" class="form-label">Last Name <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="lastNameEdit" placeholder="Last Name"
+                                        [(ngModel)]="user.lastName" name="editLastName" required
+                                        [ngClass]="{'is-invalid': isEditSubmitted && editUserForm.controls['editLastName']?.invalid}">
+                                    <div *ngIf="isEditSubmitted && editUserForm.controls['editLastName']?.invalid"
+                                        class="invalid-feedback d-block">Last name is required.</div>
+                                </div>
+                            </div>
+
+                            <!-- Row 2: Username & Email -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="usernameEdit" class="form-label">Username <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="usernameEdit"
+                                        placeholder="Enter The Username" [(ngModel)]="user.userName"
+                                        name="editUserName" required
+                                        [ngClass]="{'is-invalid': isEditSubmitted && editUserForm.controls['editUserName']?.invalid}">
+                                    <div *ngIf="isEditSubmitted && editUserForm.controls['editUserName']?.invalid"
+                                        class="invalid-feedback d-block">Username is required.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="emailEdit" class="form-label">Email <span
+                                            class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="emailEdit"
+                                        placeholder="Enter The Email" [(ngModel)]="user.email" name="editEmail" required
+                                        [ngClass]="{'is-invalid': isEditSubmitted && editUserForm.controls['editEmail']?.invalid}">
+                                    <div *ngIf="isEditSubmitted && editUserForm.controls['editEmail']?.invalid"
+                                        class="invalid-feedback d-block">Email is required.</div>
+                                </div>
+                            </div>
+
+                            <!-- Row 3: Gender & Date of Birth -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="genderEdit" class="form-label">Gender <span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-select" id="genderEdit" [(ngModel)]="user.gender"
+                                        name="editGender" required
+                                        [ngClass]="{'is-invalid': isEditSubmitted && editUserForm.controls['editGender']?.invalid}">
+                                        <option value="" disabled selected>Gender Options</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <div *ngIf="isEditSubmitted && editUserForm.controls['editGender']?.invalid"
+                                        class="invalid-feedback d-block">Gender is required.</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="dateOfBirthEdit" class="form-label">Date Of Birth <span
+                                            class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" id="dateOfBirthEdit" [(ngModel)]="user.dob"
+                                        name="editDob" required
+                                        [ngClass]="{'is-invalid': isEditSubmitted && editUserForm.controls['editDob']?.invalid}">
+                                    <div *ngIf="isEditSubmitted && editUserForm.controls['editDob']?.invalid"
+                                        class="invalid-feedback d-block">Date of birth is required.</div>
+                                </div>
+                            </div>
+
+                            <!-- Row 4: Image Upload -->
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label for="imageUploadEdit" class="form-label">Image User</label>
+                                    <input class="form-control" type="file" id="imageUploadEdit" accept="image/*"
+                                        (change)="onFileSelected($event)">
+
+                                    <input type="hidden" [(ngModel)]="user.image" name="editImage">
+
+                                    <div *ngIf="user.image" class="mt-2">
+                                        <img [src]="user.image" alt="Selected Image Preview"
+                                            style="max-width: 100px; max-height: 100px; border-radius: 4px;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-outline-primary me-2"
+                                        (click)="uploadSelectedImage()">
+                                        <i class="bi bi-upload"></i> Upload Image
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger" (click)="user.image = ''">
+                                        <i class="bi bi-x-circle"></i> Cancel Upload
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="roleNameEdit" class="form-label">Role Name <span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-select" id="roleNameEdit" [(ngModel)]="user.roleName"
+                                        name="editRoleName" required
+                                        [ngClass]="{'is-invalid': isEditSubmitted && editUserForm.controls['editRoleName']?.invalid}">
+                                        <option value="" disabled selected>Select a Role</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="user">User</option>
+                                        <option value="moderator">Moderator</option>
+                                    </select>
+                                    <div *ngIf="isEditSubmitted && editUserForm.controls['editRoleName']?.invalid"
+                                        class="invalid-feedback d-block">Role is required.</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger " data-bs-dismiss="modal"
+                            (click)="resetForm()">Close</button>
+                        <button type="submit" class="btn btn-primary" form="editUserFormRef">Save
+                            changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Alert -->
+    <div *ngIf="toast.show" class="alert alert-{{toast.type}} shadow"
+        style="position: fixed; right: 16px; bottom: 16px; z-index: 1080; min-width: 260px;">
+        {{ toast.message }}
+    </div>
+</div>
+>>>>>>> sorng

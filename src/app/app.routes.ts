@@ -3,8 +3,12 @@ import { Registration } from './registration/registration';
 import { Login } from './login/login';
 import { Home } from './home/home';
 import { Users } from './users/users';
+<<<<<<< HEAD
 import { Categories } from './categories/categories';
 import { Books } from './books/books';
+=======
+import { authGuard } from './guards/auth.guard';
+>>>>>>> sorng
 
 export const routes: Routes = [
     {
@@ -24,6 +28,7 @@ export const routes: Routes = [
     {
         path: 'home',
         component: Home,
+        canActivate: [authGuard],
         children:
             [
                 {
