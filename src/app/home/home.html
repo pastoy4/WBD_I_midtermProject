@@ -9,9 +9,18 @@
             </a>
 
             <!-- Account Name and Avatar -->
-            <div class="d-flex align-items-center">
-                <span class="d-none d-sm-inline me-3 text-dark fw-medium">Account Name</span>
-                <i class="bi bi-person-circle fa-2x text-dark fs-3"></i> <!-- Avatar Icon -->
+            <div class="d-flex align-items-center gap-3">
+                <ng-container *ngIf="currentUser$ | async as user; else guest">
+                    <span class="d-none d-sm-inline text-dark fw-medium">
+                        {{ user.firstName }} {{ user.lastName }}
+                    </span>
+                    <img [src]="user.image || 'https://via.placeholder.com/48?text=U'" alt="User avatar"
+                        class="rounded-circle" style="width: 48px; height: 48px; object-fit: cover;">
+                    <button class="btn btn-outline-secondary btn-sm" (click)="logout()">Logout</button>
+                </ng-container>
+                <ng-template #guest>
+                    <span class="text-dark fw-medium">Guest</span>
+                </ng-template>
             </div>
         </div>
     </nav>

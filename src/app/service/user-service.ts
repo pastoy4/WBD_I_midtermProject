@@ -7,11 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  
+
   private apiUrl = 'http://localhost:9000/api/users'; // Base API URL
   private uploadUrl = 'http://localhost:9000/api/upload/image';
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) { }
 
   getUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
@@ -27,6 +27,11 @@ export class UserService {
     return this.http.post<any>(`${this.apiUrl}/register`, data);
   }
   // <--- END UPDATED ENDPOINT --->
+
+  // Login endpoint
+  loginUser(email: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login`, { email, password });
+  }
 
   updateUser(id: string, data: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, data);
